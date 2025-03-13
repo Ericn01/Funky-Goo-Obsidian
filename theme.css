@@ -1,34 +1,408 @@
-body {
-	--radius-s: 0px;
-	--radius-m: 0px;
-	--radius-l: 0px;
-	--input-radius: 0px;
-	--tab-radius-active: 0px;
-	--checkbox-radius: 0px;
-	--toggle-radius: 0px;
-	--toggle-thumb-radius: 0px;
-	--slider-thumb-radius: 0px;
-}
+/* Funky Goo - A Purple & Green Theme for Obsidian
+* Created on March 12, 2025
+* Author: Eric Nielsen
+*/
 
-.workspace-tab-header.is-active::before, .workspace-tab-header.is-active::after {
-	display: none;
-}
-
-svg * {
-	stroke-linecap: square;
-	stroke-linejoin: miter;
-	rx: 0;
-	ry: 0;
-}
-
-.menu {
-	padding: var(--size-2-1);
-}
-
-.menu-item {
-	padding: var(--size-4-1) var(--size-4-2);
-}
-
-.menu-separator {
-	margin: var(--size-2-1) calc(var(--size-2-1) * -1);
-}
+:root {
+	/* Main color palette */
+	--background-primary: #1a0025; /* Deep purple background */
+	--background-secondary: #12001a; /* Darker purple for side panels */
+	--background-tertiary: #25002f; /* Slightly lighter purple for hover states */
+	
+	/* Text colors */
+	--text-normal: #e0e0e0; /* Light text for readability */
+	--text-muted: #a0a0a0; /* Muted text for secondary elements */
+	--text-faint: #707070; /* Faint text for less important elements */
+	
+	/* Accent colors - funky greens */
+	--accent-primary: #00ff8c; /* Bright green for primary accents */
+	--accent-secondary: #66ffc2; /* Lighter green for secondary accents */
+	--accent-tertiary: #39b382; /* Darker green for tertiary accents */
+	
+	/* Gooey purple highlights */
+	--highlight-primary: #b342ff; /* Bright purple for highlights */
+	--highlight-secondary: #9966ff; /* Softer purple for secondary highlights */
+	
+	/* Interactive elements */
+	--interactive-normal: #2a0040; /* Base interactive element color */
+	--interactive-hover: #420060; /* Hover state for interactive elements */
+	--interactive-accent: #00ff8c; /* Accent color for interactive elements */
+	--interactive-accent-hover: #66ffc2; /* Hover state for accent elements */
+	
+	/* Scroll bars */
+	--scrollbar-bg: #12001a; /* Scrollbar background */
+	--scrollbar-thumb: #6a00a0; /* Scrollbar thumb */
+	--scrollbar-active: #9500e1; /* Active scrollbar */
+	
+	/* Borders */
+	--border-color: #39005a; /* Border color */
+	--border-width: 1.5px; /* Slightly thicker borders for gooey feel */
+	--border-radius: 8px; /* Rounded corners for UI elements */
+	}
+	
+	/* ==================== BASE ELEMENTS ==================== */
+	
+	body {
+	font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	background-color: var(--background-primary);
+	color: var(--text-normal);
+	}
+	
+	/* Adding a subtle texture for the gooey effect */
+	.workspace-leaf-content::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-image: radial-gradient(
+		ellipse at 50% 50%,
+		rgba(178, 66, 255, 0.05) 0%,
+		rgba(0, 255, 140, 0.05) 100%
+	);
+	pointer-events: none;
+	z-index: -1;
+	}
+	
+	/* ==================== EDITOR ==================== */
+	
+	.cm-s-obsidian {
+	--background-primary: var(--background-primary);
+	--text-normal: var(--text-normal);
+	}
+	
+	/* Editor text */
+	.cm-s-obsidian .CodeMirror-line {
+	color: var(--text-normal);
+	}
+	
+	/* Header styling */
+	.cm-header-1, .markdown-preview-view h1 {
+	color: var(--accent-primary);
+	font-weight: 700;
+	border-bottom: 2px solid var(--accent-tertiary);
+	padding-bottom: 4px;
+	}
+	
+	.cm-header-2, .markdown-preview-view h2 {
+	color: var(--highlight-primary);
+	font-weight: 600;
+	}
+	
+	.cm-header-3, .markdown-preview-view h3 {
+	color: var(--accent-secondary);
+	font-weight: 600;
+	}
+	
+	.cm-header-4, .markdown-preview-view h4 {
+	color: var(--highlight-secondary);
+	font-weight: 600;
+	}
+	
+	.cm-header-5, .markdown-preview-view h5 {
+	color: var(--accent-tertiary);
+	font-weight: 500;
+	}
+	
+	.cm-header-6, .markdown-preview-view h6 {
+	color: var(--text-muted);
+	font-weight: 500;
+	}
+	
+	/* Links */
+	.cm-url, .cm-link, .markdown-preview-view a {
+	color: var(--accent-primary);
+	text-decoration: none;
+	}
+	
+	.cm-url:hover, .cm-link:hover, .markdown-preview-view a:hover {
+	color: var(--accent-secondary);
+	text-decoration: underline;
+	}
+	
+	/* Emphasis */
+	.cm-em, .markdown-preview-view em {
+	color: var(--highlight-primary);
+	font-style: italic;
+	}
+	
+	.cm-strong, .markdown-preview-view strong {
+	color: var(--accent-primary);
+	font-weight: 700;
+	}
+	
+	/* Code blocks */
+	.markdown-preview-view code,
+	.cm-inline-code {
+	color: var(--accent-primary);
+	background-color: rgba(0, 255, 140, 0.1);
+	padding: 2px 4px;
+	border-radius: 4px;
+	}
+	
+	.markdown-preview-view pre,
+	.CodeMirror .cm-hmd-codeblock {
+	background-color: #0a0014;
+	border: 1px solid var(--interactive-normal);
+	border-radius: var(--border-radius);
+	padding: 8px;
+	}
+	
+	/* Lists */
+	.cm-s-obsidian span.cm-formatting-list,
+	.markdown-preview-view ul > li::marker {
+	color: var(--accent-primary);
+	}
+	
+	ol > li::marker {
+	color: var(--highlight-primary);
+	}
+	
+	/* Tables */
+	.markdown-preview-view table {
+	border-collapse: separate;
+	border-spacing: 0;
+	margin: 1.5em 0;
+	border-radius: var(--border-radius);
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 
+				0 0 8px rgba(179, 66, 255, 0.2);
+	}
+	
+	.markdown-preview-view th {
+	background: linear-gradient(
+		135deg,
+		var(--interactive-normal),
+		var(--interactive-hover)
+	);
+	color: var(--accent-primary);
+	font-weight: 600;
+	border: var(--border-width) solid var(--border-color);
+	padding: 8px 12px;
+	text-align: left;
+	}
+	
+	.markdown-preview-view td {
+	border: var(--border-width) solid var(--border-color);
+	padding: 8px 12px;
+	transition: background-color 0.2s ease;
+	}
+	
+	.markdown-preview-view tr:nth-child(even) {
+	background-color: rgba(42, 0, 64, 0.3); /* Alternating row color */
+	}
+	
+	.markdown-preview-view tr:hover td {
+	background-color: rgba(179, 66, 255, 0.1);
+	}
+	
+	/* Add glow effect to first column for visual hierarchy */
+	.markdown-preview-view td:first-child {
+	border-left: 2px solid var(--accent-primary);
+	}
+	
+	/* Add glow to tables in edit mode too */
+	.cm-s-obsidian .HyperMD-table-row {
+	border-color: var(--border-color);
+	color: var(--text-normal);
+	}
+	
+	.cm-s-obsidian .HyperMD-table-row-0 {
+	color: var(--accent-primary);
+	}
+	
+	/* ==================== UI ELEMENTS ==================== */
+	
+	/* Sidebar */
+	.nav-folder-title, .nav-file-title {
+	color: var(--text-normal);
+	}
+	
+	.nav-folder-title:hover, .nav-file-title:hover {
+	color: var(--accent-primary);
+	background-color: var(--interactive-hover);
+	}
+	
+	.nav-file-title.is-active {
+	color: var(--accent-primary);
+	background-color: var(--interactive-normal);
+	border-left: 3px solid var(--accent-primary);
+	}
+	
+	/* Buttons */
+	button, .workspace-button {
+	background-color: var(--interactive-normal);
+	color: var(--text-normal);
+	border: none;
+	border-radius: var(--border-radius);
+	padding: 6px 12px;
+	transition: all 0.2s ease;
+	}
+	
+	button:hover, .workspace-button:hover {
+	background-color: var(--interactive-hover);
+	color: var(--accent-primary);
+	transform: translateY(-1px);
+	box-shadow: 0 2px 8px rgba(0, 255, 140, 0.3);
+	}
+	
+	/* Tabs */
+	.workspace-tab-header {
+	background-color: var(--background-secondary);
+	color: var(--text-muted);
+	border-bottom: 2px solid transparent;
+	}
+	
+	.workspace-tab-header:hover {
+	color: var(--accent-primary);
+	}
+	
+	.workspace-tab-header.is-active {
+	color: var(--accent-primary);
+	border-bottom: 2px solid var(--accent-primary);
+	}
+	
+	/* Search */
+	.search-result-file-title {
+	color: var(--highlight-primary);
+	font-weight: 600;
+	}
+	
+	.search-result-file-matches {
+	color: var(--text-normal);
+	}
+	
+	.search-result-file-match:hover {
+	background-color: var(--interactive-hover);
+	}
+	
+	/* Scroll bars */
+	::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+	}
+	
+	::-webkit-scrollbar-track {
+	background-color: var(--scrollbar-bg);
+	}
+	
+	::-webkit-scrollbar-thumb {
+	background-color: var(--scrollbar-thumb);
+	border-radius: 10px;
+	border: 3px solid var(--scrollbar-bg);
+	}
+	
+	::-webkit-scrollbar-thumb:hover {
+	background-color: var(--scrollbar-active);
+	}
+	
+	/* Checkboxes */
+	input[type=checkbox] {
+	border: 1.5px solid var(--text-muted);
+	background-color: transparent;
+	}
+	
+	input[type=checkbox]:checked {
+	background-color: var(--accent-primary);
+	border-color: var(--accent-primary);
+	}
+	
+	/* ==================== GOOEY EFFECTS ==================== */
+	
+	/* Glow effect for active elements */
+	.nav-file-title.is-active,
+	button:focus,
+	.workspace-tab-header.is-active,
+	.suggestion-item.is-selected {
+	box-shadow: 0 0 6px rgba(179, 66, 255, 0.6);
+	}
+	
+	/* Pulsing effect for mentions and tags */
+	.tag, a.internal-link, a.tag {
+	background: linear-gradient(
+		90deg,
+		rgba(179, 66, 255, 0.15),
+		rgba(0, 255, 140, 0.15),
+		rgba(179, 66, 255, 0.15)
+	);
+	background-size: 200% 100%;
+	border-radius: 4px;
+	padding: 2px 5px;
+	animation: pulse 4s infinite;
+	}
+	
+	@keyframes pulse {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+	}
+	
+	/* Blob effect for modal dialogs */
+	.modal {
+	border-radius: 16px;
+	background: var(--background-secondary);
+	border: 2px solid;
+	border-image: linear-gradient(
+		45deg,
+		var(--highlight-primary),
+		var(--accent-primary),
+		var(--highlight-secondary)
+	) 1;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4),
+				0 0 12px rgba(179, 66, 255, 0.3);
+	}
+	
+	.modal-title {
+	color: var(--accent-primary);
+	}
+	
+	/* Graph view customization */
+	.graph-view.color-fill {
+	color: var(--highlight-primary);
+	}
+	
+	.graph-view.color-line {
+	color: var(--accent-primary);
+	}
+	
+	.graph-view.color-text {
+	color: var(--text-normal);
+	}
+	
+	.graph-view.color-fill-highlight {
+	color: var(--accent-secondary);
+	}
+	
+	.graph-view.color-line-highlight {
+	color: var(--highlight-secondary);
+	}
+	
+	/* Custom blockquote styling */
+	blockquote {
+	border-left: 4px solid var(--accent-primary);
+	background: linear-gradient(
+		to right,
+		rgba(179, 66, 255, 0.1),
+		rgba(0, 0, 0, 0)
+	);
+	margin: 1em 0;
+	padding: 0.5em 1em;
+	border-radius: 0 var(--border-radius) var(--border-radius) 0;
+	}
+	
+	/* Custom horizontal rule */
+	hr {
+	border: none;
+	height: 2px;
+	background: linear-gradient(
+		to right,
+		var(--background-secondary),
+		var(--highlight-primary),
+		var(--accent-primary),
+		var(--background-secondary)
+	);
+	margin: 2em 0;
+	}
+	
